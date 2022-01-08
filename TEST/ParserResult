@@ -1,0 +1,21 @@
+import requests
+from bs4 import BeautifulSoup as BS
+from abc import ABC, abstractmethod
+import Base, BaseParserAbc as BPS
+
+url = "https://oz.by/food/more101077299.html"
+
+
+class ParserResult(Base, BPS):
+
+    def __init__(self, url):
+        self.url = url
+        self.reposit = []
+
+    def pars_page(self):
+        response = requests.get(self.url)
+        html = BS(response.text, "html.parser")
+        res = html.select("#block-views-menu-main-page-block > div > div > div.field.field-name-body.field-type-text-with-summary.field-label-hidden > div > div > p:nth-child(5)")
+        for el in res:
+            self.reposit.append(el.text)
+        return self.reposit
