@@ -1,0 +1,20 @@
+
+class BaseCl:
+
+    def __init__(self, url):
+        self.url = url
+
+
+    def __enter__(self):
+       print('TEST ENTER')
+       return self
+
+
+    def __iter__(self):
+        return self
+
+
+    def __exit__(self, exception_type, exception_val, trace):
+        print('TEST EXIT')
+        return True
+
